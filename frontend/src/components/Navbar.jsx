@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../features/auth/authSlice";
@@ -10,14 +10,7 @@ const Navbar = () => {
   const { user } = useSelector((state) => state.auth);
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  // const handleLogOut = async() => {
-  //   const response = await axiosInstance.post("/api/auth/logout")
-  //   dispatch(logOut())
-  //   setIsOpen(false)
-  //   toast.success(response?.data)
-  // }
   console.log(document.cookie);
   const handleLogOut = async () => {
     dispatch(logOut());

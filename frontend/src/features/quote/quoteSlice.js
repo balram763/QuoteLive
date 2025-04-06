@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../../hooks/axiosConfig";
-import Favorites from "../../Pages/Favorites";
 
 const quoteSlice = createSlice({
   name: "quote",

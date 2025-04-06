@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node ./backend/server",
-    "server": "nodemon ./backend/server",
+    "dev": "nodemon ./backend/server",
     "build": "npm install"
   },
   "author": "balram dhakad",

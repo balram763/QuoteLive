@@ -1,11 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import toast from "react-hot-toast";
 import axiosInstance from "../../hooks/axiosConfig";
 
+
 export const handleLogin = async (formData) => {
-  const loginPromise = axios
-    .post("http://localhost:8080/api/auth/login", formData)
+  const loginPromise = axiosInstance
+    .post("/api/auth/login", formData)
     .then((response) => {
       const data = response.data;
       if (!data) {
@@ -31,8 +31,8 @@ export const handleLogin = async (formData) => {
 // }
 
 export const handleSignup = async (formData) => {
-  const signupPromise = axios
-    .post("http://localhost:8080/api/auth/signup", formData)
+  const signupPromise = axiosInstance
+    .post("/api/auth/signup", formData)
     .then((response) => {
       const data = response.data;
       if (!data) {

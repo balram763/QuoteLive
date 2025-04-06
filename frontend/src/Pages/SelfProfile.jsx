@@ -14,8 +14,7 @@ const SelfProfile = () => {
   const { profile, quotes, isLoading, isError, message } = useSelector(
     (state) => state.quote
   );
-  // let [userQuotes,setUserQuote] = useState([]);
-  // console.log(profile);
+
   let userQuotes = quotes.filter(
     (quote) => quote?.author?._id === profile?._id
   );

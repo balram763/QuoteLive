@@ -8,7 +8,7 @@ import About from "./Pages/About";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import PostQuote from "./Pages/PostQuote";
-import DarkModeBtn from "./components/darkModeBtn";
+import DarkModeBtn from "./components/DarkModeBtn";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { isloggedin } from "./features/auth/authSlice";
@@ -38,16 +38,6 @@ function App() {
   }, []);
 
 
-  
-
-  // const isLogin = () => {
-  //   if (!user) {
-  //     const userExist = localStorage.getItem("user");
-  //     if (userExist) {
-  //       dispatch(isloggedin(JSON.parse(userExist)));
-  //     }
-  //   }
-  // };
 
   console.log("unwanter rendering");
 
@@ -55,15 +45,6 @@ function App() {
     dispatch(fetchQuote());
   }, []);
 
-  // useEffect(() => {
-  //   isLogin();
-  // }, []);
-
-  // useEffect(() => {
-  //   if ((isError || message)) {
-  //     toast.error(message || "something went wrong");
-  //   }
-  // }, [isError, message]);
 
   useEffect(() => {
     if (user && (isError || message)) {

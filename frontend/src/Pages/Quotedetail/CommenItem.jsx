@@ -1,5 +1,4 @@
 import { RiDeleteBin6Fill } from "react-icons/ri";
-// import axiosInstance from "../hooks/axiosConfig";
 import toast from "react-hot-toast";
 import axiosInstance from "../../hooks/axiosConfig";
 
