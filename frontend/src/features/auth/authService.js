@@ -1,5 +1,7 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import toast from "react-hot-toast";
+import axiosInstance from "../../hooks/axiosConfig";
 
 export const handleLogin = async (formData) => {
   const loginPromise = axios
@@ -15,8 +17,8 @@ export const handleLogin = async (formData) => {
     });
   const result = await toast.promise(loginPromise, {
     loading: "Logging in...",
-    success: (data) => `Welcome ${data?.user?.username || "Sir"}!`,
-    error: (err) => err.response?.data?.message || "Something went wrong...",
+    success: (data) => `Welcome ${user?.username || "Sir"}!`,
+    error: (err) => err.response?.data?.message
   });
 
   return result;
@@ -42,9 +44,12 @@ export const handleSignup = async (formData) => {
 
   const result = await toast.promise(signupPromise, {
     loading: "sign up...",
-    success: (data) => `Welcome ${data?.user?.username || " Sir!"}`,
-    error: (err) => err?.response?.data?.message || "something went wrong....",
+    success: (data) => `Welcome ${user?.username || " Sir!"}`,
+    error: (err) => err?.response?.data?.message ,
   });
   console.log(result);
   return result;
 };
+
+
+

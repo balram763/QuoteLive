@@ -61,16 +61,19 @@ const quoteSlice = createSlice({
         state.isSuccess = true;
       })
       .addCase(postQuote.fulfilled, (state, action) => {
-        (state.isLoading = false), (state.isError = false);
-        state.isSuccess = true;
+        state.isLoading = false
+        state.isError = false
+        state.isSuccess = true
         state.quotes = action.payload;
       })
       .addCase(postQuote.pending, (state, action) => {
-        (state.isLoading = true), (state.isError = false);
-        state.isSuccess = false;
+        state.isLoading = true 
+        state.isError = false
+        state.isSuccess = false
       })
       .addCase(postQuote.rejected, (state, action) => {
-        (state.isLoading = false), (state.isError = true);
+        state.isLoading = false
+        state.isError = true
         state.isSuccess = false;
         state.message = action.payload;
       })
@@ -78,8 +81,25 @@ const quoteSlice = createSlice({
         state.favorites = action.payload;
       })
       .addCase(fetchProfile.fulfilled, (state, action) => {
-        state.profile = action.payload;
-      });
+        state.profile = action.payload
+        state.isLoading = false
+        state.isSuccess = true
+        state.isError = false
+      })
+      .addCase(fetchProfile.pending, (state, action) => {
+        state.isLoading = true
+        state.isSuccess = false
+        state.isError = false
+      })
+      .addCase(fetchProfile.rejected, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = false
+        state.isError = true
+        state.message = action.payload
+      })
+      .addCase(updateProfile.fulfilled,(state,action)=>{
+        state.profile = action.payload
+      })
   },
 });
 
@@ -88,7 +108,7 @@ export const { handleSingleQuote } = quoteSlice.actions;
 export const postQuote = createAsyncThunk(
   "POST/QUOTE",
   async ({ text, category }, thunkAPI) => {
-    console.log({ text, category });
+    // console.log({ text, category });
     const token = thunkAPI.getState().auth.user?.token;
     const response = await axiosInstance.post(
       "api/quotes",
@@ -144,5 +164,29 @@ export const fetchFavorite = createAsyncThunk(
     return response.data.quotes;
   }
 );
+
+
+export const updateProfile = createAsyncThunk(
+  "UPDATE/AUTH",
+  async (formData, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
+    console.log(token);
+
+    try{
+      const response = await axiosInstance.put("/api/users/update", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response.data;
+  
+    }catch(error){
+      toast.error("something went wrong")
+    }
+  }
+);
+
+
 
 export default quoteSlice.reducer;

@@ -12,11 +12,6 @@ const QuoteCard = ({ quote }) => {
   const dispatch = useDispatch();
   const [isFavorite, setIsFavorite] = useState(false);
 
-  useEffect(() => {
-    if (user) {
-      dispatch(fetchFavorite(user.token));
-    }
-  }, [user]);
 
   useEffect(() => {
     if (favorites) {

@@ -47,10 +47,10 @@ const Favorites = () => {
   const { favorites, loading } = useSelector((state) => state.quote);
 
   useEffect(() => {
-    if (user?.token) {
-      dispatch(fetchFavorite(user.token));
+    if (user) {
+      dispatch(fetchFavorite(user?.token));
     }
-  }, [user, favorites]);
+  }, [user]);
 
   return (
     <div className="max-w-4xl border-2 hover:shadow-pink-600 dark:hover:shadow-blue-600 shadow-2xl border-pink-500 rounded-xl dark:border-blue-500 mx-auto p-6 transition-colors duration-300 bg-gradient-to-r dark:from-blue-900/90 dark:to-black/90 from-purple-200 to-pink-300 dark:text-white text-black">

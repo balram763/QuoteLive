@@ -4,7 +4,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../features/auth/authSlice";
 import toast from "react-hot-toast";
-import axiosInstance from "../hooks/axiosConfig";
+import { BsChatSquareQuoteFill } from "react-icons/bs";
 
 const Navbar = () => {
   const { user } = useSelector((state) => state.auth);
@@ -28,13 +28,13 @@ const Navbar = () => {
   return (
     <nav className="bg-gradient-to-r from-pink-50 to-pink-300 dark:from-gray-900 dark:to-black  p-4 shadow-md">
       <div className="max-w-6xl mx-auto flex justify-between items-center">
-        <Link to="/" className="dark:text-white text-black text-2xl font-bold">
-          QuoteApp
+        <Link to="/" className="dark:text-white text-black md:text-xl text-sm font-bold">
+          <BsChatSquareQuoteFill className="ml-6 xl:ml-8 md:text-xl" />  QuotLive
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6 dark:text-white ">
-          <Link to="/" className="hover:text-gray-300">
+        <div className="hidden md:flex space-x-6  dark:text-white ">
+          <Link to="/" className="hover:text-gray-300 fw-bold">
             Home
           </Link>
           <Link to="/profile" className="hover:text-gray-300">
@@ -71,6 +71,11 @@ const Navbar = () => {
         </button>
       </div>
 
+
+
+
+
+
       {isOpen && (
         <div className="md:hidden z-20 absolute top-16 left-0 w-full bg-white dark:bg-black text-black dark:text-white shadow-xl rounded-lg p-4 space-y-3 transition-all duration-300">
           <Link
@@ -103,7 +108,7 @@ const Navbar = () => {
           </Link>
           {user ? (
             <button
-              className="block px-4 py-2 text-lg font-medium transition-transform duration-200 rounded-lg hover:scale-102 hover:bg-gray-200 dark:hover:bg-gray-800"
+              className="block px-4 py-2 text-red-600 text-lg font-medium transition-transform duration-200 rounded-lg hover:scale-102 hover:bg-gray-200 dark:hover:bg-gray-800"
               onClick={handleLogOut}
             >
               LogOut
@@ -111,7 +116,7 @@ const Navbar = () => {
           ) : (
             <Link
               to="/login"
-              className="block px-4 py-2 text-lg font-medium transition-transform duration-200 rounded-lg hover:scale-102 hover:bg-gray-200 dark:hover:bg-gray-800"
+              className="block text-white  bg-blue-500  px-4 py-2 text-lg font-medium transition-transform duration-200 rounded-lg hover:scale-102 hover:bg-gray-200 dark:hover:bg-gray-800"
               onClick={() => setIsOpen(false)}
             >
               Login

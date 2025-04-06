@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchProfile } from "../features/quote/quoteSlice";
 import Loading from "../components/Loading";
 import { FaUsers, FaUserSecret } from "react-icons/fa";
@@ -10,11 +10,12 @@ const SelfProfile = () => {
   const { user } = useSelector((state) => state.auth);
   const userId = user?.author?._id;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { profile, quotes, isLoading, isError, message } = useSelector(
     (state) => state.quote
   );
   // let [userQuotes,setUserQuote] = useState([]);
-  console.log(profile);
+  // console.log(profile);
   let userQuotes = quotes.filter(
     (quote) => quote?.author?._id === profile?._id
   );
@@ -24,6 +25,14 @@ const SelfProfile = () => {
       dispatch(fetchProfile(user.token));
     }
   }, [user, dispatch, location.pathname]);
+
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate("/login")
+  //   }
+  // }, [user, dispatch, location.pathname]);
+
+
 
   const profilePic = `https://api.dicebear.com/7.x/avataaars/svg?seed=${userId}`;
 

@@ -27,11 +27,13 @@ const authSlice = createSlice({
         state.isError = false;
         state.isLoading = false;
         state.user = action.payload;
+        state.message = "";
       })
       .addCase(loginUser.pending, (state, action) => {
         state.isError = false;
         state.isLoading = true;
         state.isSuccess = false;
+
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isError = true;
@@ -43,19 +45,21 @@ const authSlice = createSlice({
         state.isError = false;
         state.isLoading = true;
         state.fulfilled = false;
+
       })
       .addCase(signupUser.fulfilled, (state, action) => {
         state.isError = false;
         state.isLoading = false;
         state.isSuccess = true;
         state.user = action.payload;
+        state.message = "";
       })
       .addCase(signupUser.rejected, (state, action) => {
         state.isError = true;
         state.message = action.payload;
         state.isSuccess = false;
         state.isLoading = false;
-      }),
+      })
 });
 
 export const loginUser = createAsyncThunk(
@@ -64,7 +68,7 @@ export const loginUser = createAsyncThunk(
     try {
       return await handleLogin(formData);
     } catch (error) {
-      console.log(error);
+      return thunkAPI.rejectWithValue(error.response?.data?.message || "Login failed")
     }
   }
 );
@@ -76,10 +80,12 @@ export const signupUser = createAsyncThunk(
       console.log(formData);
       return await handleSignup(formData);
     } catch (error) {
-      toast.error("something went wrong");
+      return thunkAPI.rejectWithValue(error.response?.data?.message || "Sign Up failed")
     }
   }
 );
+
+
 
 export const { logOut, isloggedin } = authSlice.actions;
 

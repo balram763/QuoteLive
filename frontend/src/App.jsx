@@ -9,7 +9,7 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import PostQuote from "./Pages/PostQuote";
 import DarkModeBtn from "./components/darkModeBtn";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { isloggedin } from "./features/auth/authSlice";
 import toast from "react-hot-toast";
@@ -21,18 +21,33 @@ import FollowersPage from "./Pages/Followers";
 
 function App() {
   const dispatch = useDispatch();
+  const [isAuthChecked, setIsAuthChecked] = useState(false);
   const { user, isLoading, isError, message } = useSelector(
     (state) => state.auth
   );
 
-  const isLogin = () => {
-    if (!user) {
-      const userExist = localStorage.getItem("user");
-      if (userExist) {
-        dispatch(isloggedin(JSON.parse(userExist)));
-      }
+
+  useEffect(() => {
+    const userExist = localStorage.getItem("user");
+    if (userExist) {
+      dispatch(isloggedin(JSON.parse(userExist)));
+    } else {
+      dispatch(isloggedin(null));
     }
-  };
+    setIsAuthChecked(true);
+  }, []);
+
+
+  
+
+  // const isLogin = () => {
+  //   if (!user) {
+  //     const userExist = localStorage.getItem("user");
+  //     if (userExist) {
+  //       dispatch(isloggedin(JSON.parse(userExist)));
+  //     }
+  //   }
+  // };
 
   console.log("unwanter rendering");
 
@@ -40,17 +55,24 @@ function App() {
     dispatch(fetchQuote());
   }, []);
 
-  useEffect(() => {
-    isLogin();
-  }, []);
+  // useEffect(() => {
+  //   isLogin();
+  // }, []);
+
+  // useEffect(() => {
+  //   if ((isError || message)) {
+  //     toast.error(message || "something went wrong");
+  //   }
+  // }, [isError, message]);
 
   useEffect(() => {
-    if ((isError, message)) {
-      toast.error(message || "something went wrong");
+    if (user && (isError || message)) {
+      toast.error(message || "Something wrong");
     }
-  }, [isError, message]);
+  }, [isError, message, user]);
+  
 
-  if (isLoading) {
+  if (!isAuthChecked || isLoading) {
     return <Loading />;
   }
 
@@ -80,3 +102,4 @@ function App() {
 }
 
 export default App;
+
