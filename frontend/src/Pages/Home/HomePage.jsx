@@ -28,9 +28,28 @@ const Home = () => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
+
+useEffect(() => {
+  const fetchInitialQuotes = async () => {
+    try {
+      await dispatch(fetchQuote()).unwrap();
+    } catch (error) {
+      toast.error("Something went wrong while fetching quotes");
+    } finally {
+      setIsInitialLoading(false);
+    }
+  };
+
+  fetchInitialQuotes();
+}, [dispatch]);
+
+
+
+
   useEffect(() => {
 
-    
+
     if (user) {
       setTimeout(() => {
         dispatch(fetchFavorite(user?.token));
@@ -76,6 +95,9 @@ const Home = () => {
   );
   
 
+  if(isInitialLoading && isLoading){
+    return(<Loading/>)
+  }
 
 
   return (

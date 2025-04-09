@@ -29,12 +29,12 @@ function App() {
 
   useEffect(() => {
     const userExist = localStorage.getItem("user");
-    dispatch(fetchQuote())
     if (userExist) {
       dispatch(isloggedin(JSON.parse(userExist)));
     } else {
       dispatch(isloggedin(null));
     }
+
     setIsAuthChecked(true);
   }, []);
 
