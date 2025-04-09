@@ -17,7 +17,7 @@ const CommentItem = ({ comment, quoteId, setQuote, user }) => {
       setQuote(response.data.quote);
       toast.success(response.data.message);
     } catch (error) {
-      console.error("Error deleting comment:", error);
+      toast.error("something went wrong");
     }
   };
 

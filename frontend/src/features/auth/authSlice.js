@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { handleLogin, handleSignup } from "./authService";
-import toast from "react-hot-toast";
+import { handleLogin, handleOtpVerify, handleSignup } from "./authService";
 
 const authSlice = createSlice({
   name: "auth",
@@ -10,56 +9,71 @@ const authSlice = createSlice({
     isError: false,
     isSuccess: false,
     message: "",
+    isOtpStage: false,
+    emailForOtp: null,
   },
   reducers: {
-    logOut: (state, action) => {
+    logOut: (state) => {
       state.user = null;
       localStorage.removeItem("user");
     },
     isloggedin: (state, action) => {
       state.user = action.payload;
     },
+    setEmailForOtp: (state, action) => {
+      state.emailForOtp = action.payload;
+    },
+    setOtpStage: (state, action) => {
+      state.isOtpStage = action.payload;
+    },
   },
-  extraReducers: (builder) =>
+  extraReducers: (builder) => {
     builder
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.isSuccess = true;
-        state.isError = false;
-        state.isLoading = false;
-        state.user = action.payload;
-        state.message = "";
-      })
       .addCase(loginUser.pending, (state, action) => {
-        state.isError = false;
         state.isLoading = true;
-        state.isSuccess = false;
-
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isLoading = false;
+        state.isSuccess = true;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isError = true;
-        state.isLoading = false;
-        state.isSuccess = false;
         state.message = action.payload;
+        state.isLoading = false;
       })
       .addCase(signupUser.pending, (state, action) => {
-        state.isError = false;
         state.isLoading = true;
-        state.fulfilled = false;
-
       })
+
       .addCase(signupUser.fulfilled, (state, action) => {
-        state.isError = false;
         state.isLoading = false;
         state.isSuccess = true;
-        state.user = action.payload;
-        state.message = "";
+        state.isOtpStage = true;
       })
+
       .addCase(signupUser.rejected, (state, action) => {
         state.isError = true;
         state.message = action.payload;
-        state.isSuccess = false;
         state.isLoading = false;
       })
+
+      .addCase(verifyOtp.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(verifyOtp.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+        state.isOtpStage = false;
+        state.emailForOtp = null;
+      })
+      .addCase(verifyOtp.rejected, (state, action) => {
+        state.isError = true;
+        state.message = action.payload;
+        state.isLoading = false;
+      });
+  },
 });
 
 export const loginUser = createAsyncThunk(
@@ -68,7 +82,7 @@ export const loginUser = createAsyncThunk(
     try {
       return await handleLogin(formData);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message || "Login failed")
+      return thunkAPI.rejectWithValue(error.response?.data?.message);
     }
   }
 );
@@ -77,16 +91,27 @@ export const signupUser = createAsyncThunk(
   "SIGNUP/AUTH",
   async (formData, thunkAPI) => {
     try {
-      console.log(formData);
-      return await handleSignup(formData);
+      thunkAPI.dispatch(setEmailForOtp(formData.email));
+      const data = await handleSignup(formData);
+      return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message || "Sign Up failed")
+      return thunkAPI.rejectWithValue(error.response?.data?.message);
     }
   }
 );
 
+export const verifyOtp = createAsyncThunk(
+  "VERIFY/OTP",
+  async (otp, thunkAPI) => {
+    try {
+      const email = thunkAPI.getState().auth.emailForOtp;
+      return await handleOtpVerify({ email, otp });
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data?.message);
+    }
+  }
+);
 
-
-export const { logOut, isloggedin } = authSlice.actions;
-
+export const { logOut, isloggedin, setEmailForOtp, setOtpStage } =
+  authSlice.actions;
 export default authSlice.reducer;

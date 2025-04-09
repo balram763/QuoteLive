@@ -27,7 +27,7 @@ const CommentSection = ({ quote, setQuote, user }) => {
       toast.success(response.data.message);
       setComment("");
     } catch (error) {
-      console.error("Error adding comment:", error);
+      toast.error("something went wrong");
     }
   };
 

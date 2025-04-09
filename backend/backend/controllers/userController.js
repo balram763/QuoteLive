@@ -2,7 +2,10 @@ const User = require('../models/UserModel');
 
 const getUserProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id).select('-password');
+    const user = await User.findById(req.params.id).select('-password')
+    .populate("followers", "username profilePic _id")
+    .populate("following", "username profilePic _id")
+    
     if (!user) return res.status(404).json({ message: 'User not found' });
     res.status(200).json(user);
   } catch (error) {
@@ -94,45 +97,7 @@ const getAllUsers = async() => {
 
 
 
-// const updateProfile = async (req, res) => {
-//   try {
-//     const { bio } = req.body;
-//     let profilePic;
 
-//     if (req.file) {
-//       profilePic = req.file?.path;
-//     }
-
-//     const user = await User.findById(req.user._id);
-//     if (!user) {
-//       return res.status(404).json("User not found");
-//     }
-
-//     const updateData = {}
-//     if(bio) {
-//       updateData.bio = bio
-//     }
-//     if (profilePic){
-//       updateData.profilePic = profilePic;
-//     }
-
-
-//     const updatedUser = await User.findByIdAndUpdate(
-//       req.user._id,
-//       { $set: updateData },
-//       { new: true }
-//     );
-
-//     if (!updatedUser) {
-//       return res.status(500).json("Unable to update");
-//     }
-
-//     return res.status(200).json(updatedUser);
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).json({message : error.message || "Internal server error"});
-//   }
-// };
 
 const updateProfile = async (req, res) => {
   try {

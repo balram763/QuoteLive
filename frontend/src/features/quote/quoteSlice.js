@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../../hooks/axiosConfig";
+import toast from "react-hot-toast";
 
 const quoteSlice = createSlice({
   name: "quote",
@@ -14,13 +15,13 @@ const quoteSlice = createSlice({
     message: "",
   },
   reducers: {
-    handleSingleQuote: (state, action) => {
-      if (action.payload) {
-        state.quotes = state.quotes.map((prev) =>
-          prev._id === action.payload._id ? action.payload : prev
-        );
-      }
-    },
+  //   handleSingleQuote: (state, action) => {
+  //     if (action.payload) {
+  //       state.quotes = state.quotes.map((prev) =>
+  //         prev._id === action.payload._id ? action.payload : prev
+  //       );
+  //     }
+  //   },
   },
   extraReducers: (builder) => {
     builder
@@ -98,16 +99,23 @@ const quoteSlice = createSlice({
       })
       .addCase(updateProfile.fulfilled,(state,action)=>{
         state.profile = action.payload
+        toast.success("Profie updated")
+      })
+      .addCase(updateProfile.rejected,(state,action)=>{
+        // state.profile = action.payload
+        toast.error(action.payload)
       })
   },
 });
 
-export const { handleSingleQuote } = quoteSlice.actions;
+// export const { 
+//   handleSingleQuote 
+
+// } = quoteSlice.actions;
 
 export const postQuote = createAsyncThunk(
   "POST/QUOTE",
   async ({ text, category }, thunkAPI) => {
-    // console.log({ text, category });
     const token = thunkAPI.getState().auth.user?.token;
     const response = await axiosInstance.post(
       "api/quotes",
@@ -134,7 +142,6 @@ export const fetchUser = createAsyncThunk(
   "USER/QUOTE",
   async (id, thunkAPI) => {
     const response = await axiosInstance.get(`/api/users/${id}`);
-    console.log(response.data);
     return response.data;
   }
 );
@@ -146,7 +153,6 @@ export const fetchProfile = createAsyncThunk(
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response.data);
     return response.data;
   }
 );
@@ -154,7 +160,6 @@ export const fetchProfile = createAsyncThunk(
 export const fetchFavorite = createAsyncThunk(
   "FETCH/FAV",
   async (token, thunkAPI) => {
-    console.log(token);
     const response = await axiosInstance.get("/api/favorites", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -169,7 +174,6 @@ export const updateProfile = createAsyncThunk(
   "UPDATE/AUTH",
   async (formData, thunkAPI) => {
     const token = thunkAPI.getState().auth.user.token;
-    console.log(token);
 
     try{
       const response = await axiosInstance.put("/api/users/update", formData, {

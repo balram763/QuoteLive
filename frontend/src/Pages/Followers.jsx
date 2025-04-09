@@ -1,28 +1,35 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
-import { fetchProfile } from "../features/quote/quoteSlice";
+import { Link, useLocation, useParams } from "react-router-dom";
+import { fetchProfile, fetchUser } from "../features/quote/quoteSlice";
 
 const FollowersPage = () => {
   const dispatch = useDispatch();
-  const { profile } = useSelector((state) => state.quote);
+  const param = useParams()
+  const { profile ,singleUser} = useSelector((state) => state.quote);
   const { user } = useSelector((state) => state.auth);
   const location = useLocation();
   const { path } = location.state || "followers";
-  const [activeTab, setActiveTab] = useState(path || "followers");
+  const [activeTab, setActiveTab] = useState(path || "followers")
 
-  const followers = profile?.followers || [];
-  const following = profile?.following || [];
+  let otherRoute = param.hasOwnProperty("id")
+
+
+  const followers = otherRoute ? singleUser.followers : profile?.followers || [];
+  const following = otherRoute ? singleUser.following : profile?.following || [];
   const activeList = activeTab === "followers" ? followers : following;
 
   useEffect(() => {
-    if (!profile && user?.token) {
-      dispatch(fetchProfile(user.token));
+    if(!otherRoute){
+      if (!profile && user?.token) {
+      dispatch(fetchProfile(user.token))
+      }
+    }else{
+      dispatch(fetchUser(param.id))
     }
-  }, [dispatch, profile, user]);
+  
+  }, [dispatch, profile,user]);
 
-  const profilePic = (id) =>
-    `https://api.dicebear.com/7.x/avataaars/svg?seed=${id}`;
 
   return (
     <div className="max-w-4xl mx-auto mt-10 px-6 py-8 bg-gradient-to-br from-pink-100/80 to-purple-100/80 dark:from-blue-900/80 dark:to-black/90 rounded-2xl shadow-lg border border-pink-400 dark:border-blue-500 transition-all">
@@ -54,7 +61,7 @@ const FollowersPage = () => {
       </div>
 
       <div className="space-y-4 max-h-[400px] overflow-y-auto">
-        {activeList.length > 0 ? (
+        {activeList?.length > 0 ? (
           activeList.map((user) => (
             <Link
               key={user._id}
@@ -62,9 +69,9 @@ const FollowersPage = () => {
               className="flex items-center gap-4 p-4 rounded-xl bg-white/70 dark:bg-gray-800/70 hover:shadow-md hover:bg-pink-100/60 dark:hover:bg-blue-900/60 transition-all"
             >
               <img
-                src={profilePic(user._id)}
+                src={user.profilePic}
                 alt="avatar"
-                className="w-12 h-12 rounded-full border border-purple-400"
+                className="w-12 h-12 object-cover rounded-full border border-purple-400"
               />
               <div>
                 <h4 className="text-lg font-semibold text-gray-900 dark:text-white">

@@ -20,8 +20,6 @@ app.use(express.urlencoded({extends : true}))
 app.use(express.json());
 app.use(errorHandler);
 
-
-// Route connections
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/quotes', require('./routes/quoteRoutes'));

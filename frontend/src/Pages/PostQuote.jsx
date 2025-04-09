@@ -31,7 +31,7 @@ const PostQuote = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(postQuote({ text: quote, category }));
-    dispatch(fetchProfile(user.token));
+    dispatch(fetchProfile(user?.token));
     setQuote("");
     setAuthor("");
     setCategory(categories[0]);

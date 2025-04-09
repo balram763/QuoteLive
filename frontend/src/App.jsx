@@ -27,6 +27,7 @@ function App() {
   );
 
 
+
   useEffect(() => {
     const userExist = localStorage.getItem("user");
     if (userExist) {
@@ -37,10 +38,6 @@ function App() {
     setIsAuthChecked(true);
   }, []);
 
-
-
-  console.log("unwanter rendering");
-
   useEffect(() => {
     dispatch(fetchQuote());
   }, []);
@@ -48,12 +45,12 @@ function App() {
 
   useEffect(() => {
     if (user && (isError || message)) {
-      toast.error(message || "Something wrong");
+      toast.error(message);
     }
   }, [isError, message, user]);
   
 
-  if (!isAuthChecked || isLoading) {
+  if (!isAuthChecked || isLoading ) {
     return <Loading />;
   }
 
@@ -75,6 +72,8 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/post" element={<PostQuote />} />
             <Route path="/follower" element={<FollowersPage />} />
+            <Route path="/follower/:id" element={<FollowersPage />} />
+
           </Routes>
         </div>
       </div>

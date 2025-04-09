@@ -7,7 +7,10 @@ import CommentSection from "../Pages/Quotedetail/CommentSection";
 import LikeButton from "../Pages/Quotedetail/LikeButton";
 import QuoteHeader from "../Pages/Quotedetail/QuoteHeader";
 import NotFound from "./NotFound";
-import { fetchQuote, handleSingleQuote } from "../features/quote/quoteSlice";
+import { fetchQuote, 
+  // handleSingleQuote
+
+ } from "../features/quote/quoteSlice";
 
 const QuoteDetail = () => {
   const { id } = useParams();
@@ -28,7 +31,7 @@ const QuoteDetail = () => {
   }, [id]);
 
   useEffect(() => {
-    dispatch(handleSingleQuote(quote));
+    // dispatch(handleSingleQuote(quote));
     dispatch(fetchQuote());
   }, [quote]);
 

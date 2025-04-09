@@ -96,7 +96,7 @@ const QuoteCard = ({ quote }) => {
 
   return (
     <div
-      className={`relative hover:shadow-pink-600 dark:hover:shadow-blue-600 shadow-2xl  p-6 rounded-xl mt-3 border-blue-500 border-b-8  overflow-hidden transition-transform transform hover:scale-101 bg-gradient-to-br dark:from-gray-600  dark:to-black dark:text-white  from-pink-100  to-pink-300 text-black`}
+      className={`relative hover:shadow-pink-800 border-2 dark:hover:shadow-blue-600 shadow-2xl  p-6 rounded-xl mt-3 border-blue-500 border-b-8  overflow-hidden transition-transform transform hover:scale-101 bg-gradient-to-br dark:from-gray-600  dark:to-black dark:text-white  from-pink-200  to-pink-300 text-black`}
     >
       <p className="text-lg font-semibold text-center italic">
         "{quote?.text}"

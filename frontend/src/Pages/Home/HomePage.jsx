@@ -4,6 +4,7 @@ import QuoteCard from "../QuoteCard";
 import AddPostBtn from "../../components/AddPostBtn";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFavorite } from "../../features/quote/quoteSlice";
+import Loading from "../../components/Loading";
 
 const categories = [
   "All",
@@ -23,6 +24,7 @@ const Home = () => {
   const [isFollowingTab, setIsFollowingTab] = useState(false);
 
   const { quotes,profile } = useSelector((state) => state.quote);
+  const {isLoading} = useSelector(state=>state.quote)
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -69,15 +71,19 @@ const Home = () => {
   );
   
 
+  if(isLoading){
+    return(<Loading/>)
+  }
+
   
 
 
   return (
-    <div className="max-w-4xl hover:shadow-pink-600 dark:hover:shadow-blue-600 shadow-2xl border-3 border-pink-300 rounded-xl dark:border-blue-600 mx-auto p-6 min-h-screen transition-colors duration-300 bg-gradient-to-r dark:from-blue-900/90 dark:to-black/90 from-purple-200 to-red-300 dark:text-white text-black">
+    <div className="max-w-4xl hover:shadow-pink-600 dark:hover:shadow-blue-600 shadow-2xl border-3 border-pink-300 rounded-xl dark:border-blue-600 mx-auto p-6 min-h-screen transition-colors duration-300 bg-gradient-to-r dark:from-blue-900/90 dark:to-black/90 from-purple-200 to-pink-300  dark:text-white text-black">
       
 
       <h1 className="text-4xl font-bold text-center mb-6 dark:text-white text-black">
-        Quotes
+        QuotLive
       </h1>
 
       <AddPostBtn />
@@ -126,7 +132,6 @@ const Home = () => {
         </button>
       </div>
 
-      {/* Tabs for All Quotes / Following */}
       <div className="flex justify-center gap-3 md:gap-4 mb-6">
         <button
           onClick={() => setIsFollowingTab(false)}
@@ -151,11 +156,11 @@ const Home = () => {
       </div>
 
       {isFollowingTab
-        ? followedQuotes.map((quote) => (
-            <QuoteCard key={quote.id} quote={quote} />
+        ? followedQuotes?.map((quote) => (
+            <QuoteCard key={quote?._id} quote={quote} />
           ))
         : filteredQuotes.map((quote) => (
-            <QuoteCard key={quote._id} quote={quote} />
+            <QuoteCard key={quote?._id} quote={quote} />
           ))}
     </div>
   );
