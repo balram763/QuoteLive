@@ -102,16 +102,12 @@ const quoteSlice = createSlice({
         toast.success("Profie updated")
       })
       .addCase(updateProfile.rejected,(state,action)=>{
-        // state.profile = action.payload
         toast.error(action.payload)
       })
   },
 });
 
-// export const { 
-//   handleSingleQuote 
 
-// } = quoteSlice.actions;
 
 export const postQuote = createAsyncThunk(
   "POST/QUOTE",

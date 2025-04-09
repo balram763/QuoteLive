@@ -3,10 +3,13 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import CommentItem from "./CommenItem";
 import axiosInstance from "../../hooks/axiosConfig";
+import { fetchQuote } from "../../features/quote/quoteSlice";
+import { useDispatch } from "react-redux";
 // import CommentItem from "./CommentItem";
 
 const CommentSection = ({ quote, setQuote, user }) => {
   const [comment, setComment] = useState("");
+  const dispatch = useDispatch()
 
   const handleComment = async () => {
     if (!user) {
@@ -19,12 +22,13 @@ const CommentSection = ({ quote, setQuote, user }) => {
         `/api/comments/${quote._id}`,
         { text: comment },
         {
-          headers: { Authorization: `Bearer ${user.token}` },
+          headers: { Authorization: `Bearer ${user?.token}` },
         }
       );
 
-      setQuote(response.data.quote);
-      toast.success(response.data.message);
+      setQuote(response?.data?.quote);
+      dispatch(fetchQuote());
+      toast.success(response?.data?.message);
       setComment("");
     } catch (error) {
       toast.error("something went wrong");

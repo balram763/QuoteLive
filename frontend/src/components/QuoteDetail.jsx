@@ -30,10 +30,10 @@ const QuoteDetail = () => {
     fetchById();
   }, [id]);
 
-  useEffect(() => {
-    // dispatch(handleSingleQuote(quote));
-    dispatch(fetchQuote());
-  }, [quote]);
+  // useEffect(() => {
+  //   // dispatch(handleSingleQuote(quote));
+  //   dispatch(fetchQuote());
+  // }, [quote]);
 
   if (!quote) {
     return <NotFound />;

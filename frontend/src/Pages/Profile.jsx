@@ -85,9 +85,9 @@ const Profile = () => {
     0
   );
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
   return (
     <div className="max-w-3xl hover:shadow-pink-600 dark:hover:shadow-blue-600 shadow-2xl mx-auto p-6 border-2 border-pink-500 rounded-xl dark:border-blue-500 transition-colors duration-300 bg-gradient-to-r dark:from-blue-900/90 dark:to-black/90 from-purple-300/90 to-red-200/90 text-gray-900 dark:text-gray-100">

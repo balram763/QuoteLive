@@ -1,8 +1,11 @@
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import toast from "react-hot-toast";
 import axiosInstance from "../../hooks/axiosConfig";
+import { fetchQuote } from "../../features/quote/quoteSlice";
+import { useDispatch } from "react-redux";
 
 const CommentItem = ({ comment, quoteId, setQuote, user }) => {
+  const dispatch = useDispatch()
   const handleCommentDelete = async () => {
     if (!comment._id) return;
 
@@ -15,6 +18,7 @@ const CommentItem = ({ comment, quoteId, setQuote, user }) => {
       );
 
       setQuote(response.data.quote);
+      dispatch(fetchQuote());
       toast.success(response.data.message);
     } catch (error) {
       toast.error("something went wrong");

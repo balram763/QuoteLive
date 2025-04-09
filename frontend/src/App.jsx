@@ -18,6 +18,7 @@ import { fetchQuote } from "./features/quote/quoteSlice";
 import SelfProfile from "./Pages/SelfProfile";
 import EditProfile from "./Pages/EditProfile";
 import FollowersPage from "./Pages/Followers";
+import NotFound from "./components/NotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,20 +27,15 @@ function App() {
     (state) => state.auth
   );
 
-
-
   useEffect(() => {
     const userExist = localStorage.getItem("user");
+    dispatch(fetchQuote())
     if (userExist) {
       dispatch(isloggedin(JSON.parse(userExist)));
     } else {
       dispatch(isloggedin(null));
     }
     setIsAuthChecked(true);
-  }, []);
-
-  useEffect(() => {
-    dispatch(fetchQuote());
   }, []);
 
 
@@ -73,6 +69,7 @@ function App() {
             <Route path="/post" element={<PostQuote />} />
             <Route path="/follower" element={<FollowersPage />} />
             <Route path="/follower/:id" element={<FollowersPage />} />
+            <Route path="/*" element={<NotFound/>} />
 
           </Routes>
         </div>

@@ -3,8 +3,9 @@ import QuoteCard from "../QuoteCard";
 // import { quotes } from "../../data/quotes";
 import AddPostBtn from "../../components/AddPostBtn";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchFavorite } from "../../features/quote/quoteSlice";
+import { fetchFavorite, fetchQuote } from "../../features/quote/quoteSlice";
 import Loading from "../../components/Loading";
+import toast from "react-hot-toast";
 
 const categories = [
   "All",
@@ -22,19 +23,26 @@ const Home = () => {
   const [sortOrder, setSortOrder] = useState("newest");
   const [isTrending, setIsTrending] = useState(false);
   const [isFollowingTab, setIsFollowingTab] = useState(false);
-
   const { quotes,profile } = useSelector((state) => state.quote);
   const {isLoading} = useSelector(state=>state.quote)
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
+
+    
     if (user) {
       setTimeout(() => {
         dispatch(fetchFavorite(user?.token));
       }, 100);
     }
   }, [user]);
+
+
+ 
+
+
+
 
   const filteredQuotes = quotes
     ?.filter((quote) => {
@@ -62,20 +70,12 @@ const Home = () => {
       return 0;
     });
 
-  // const followedQuotes = quotes?.filter((quote) =>
-  //   user?.following?.includes(quote.author._id)
-  // );
 
   const followedQuotes = quotes?.filter((quote) =>
     profile?.following?.some((followedUser) => followedUser._id === quote.author._id)
   );
   
 
-  if(isLoading){
-    return(<Loading/>)
-  }
-
-  
 
 
   return (

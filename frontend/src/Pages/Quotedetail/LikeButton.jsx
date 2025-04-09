@@ -2,9 +2,12 @@ import { useState, useEffect } from "react";
 import { SlLike } from "react-icons/sl";
 import toast from "react-hot-toast";
 import axiosInstance from "../../hooks/axiosConfig";
+import { fetchQuote } from "../../features/quote/quoteSlice";
+import { useDispatch } from "react-redux";
 
 const LikeButton = ({ quote, setQuote, user }) => {
   const [isLiked, setIsLiked] = useState(false);
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (user && quote.likes.includes(user.username)) {
@@ -35,6 +38,7 @@ const LikeButton = ({ quote, setQuote, user }) => {
       }
 
       setIsLiked(!isLiked);
+      dispatch(fetchQuote());
       setQuote(response?.data?.quote);
       toast.success(response.data.message);
     } catch (error) {
