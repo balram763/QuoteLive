@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { signupUser, verifyOtp } from "../features/auth/authSlice";
+import { connectSocket, signupUser, verifyOtp } from "../features/auth/authSlice";
 import toast from "react-hot-toast";
 
 const Signup = () => {
@@ -12,6 +12,7 @@ const Signup = () => {
 
   useEffect(()=>{
     if(user && user.isVerified){
+      dispatch(connectSocket());
       navigate("/")
     }
   },[])

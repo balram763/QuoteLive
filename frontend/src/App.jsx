@@ -11,7 +11,7 @@ import PostQuote from "./Pages/PostQuote";
 import DarkModeBtn from "./components/DarkModeBtn";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { isloggedin } from "./features/auth/authSlice";
+import { connectSocket, isloggedin, onlineUsers } from "./features/auth/authSlice";
 import toast from "react-hot-toast";
 import Loading from "./components/Loading";
 import { fetchQuote } from "./features/quote/quoteSlice";
@@ -19,20 +19,26 @@ import SelfProfile from "./Pages/SelfProfile";
 import EditProfile from "./Pages/EditProfile";
 import FollowersPage from "./Pages/Followers";
 import NotFound from "./components/NotFound";
+import Chat from "./Pages/Chat";
 
 function App() {
   const dispatch = useDispatch();
   const [isAuthChecked, setIsAuthChecked] = useState(false);
-  const { user, isLoading, isError, message } = useSelector(
+  const { user, isLoading, isError, message,onlineUser } = useSelector(
     (state) => state.auth
   );
 
+  // console.log(onlineUser)
+
+
   useEffect(() => {
     const userExist = localStorage.getItem("user");
-    if (userExist) {
+    if (userExist && !user) {
       dispatch(isloggedin(JSON.parse(userExist)));
+      dispatch(connectSocket())
     } else {
       dispatch(isloggedin(null));
+      
     }
 
     setIsAuthChecked(true);
@@ -69,6 +75,7 @@ function App() {
             <Route path="/post" element={<PostQuote />} />
             <Route path="/follower" element={<FollowersPage />} />
             <Route path="/follower/:id" element={<FollowersPage />} />
+            <Route path="/chat/:id" element={<Chat />} />
             <Route path="/*" element={<NotFound/>} />
 
           </Routes>

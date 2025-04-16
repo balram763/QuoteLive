@@ -36,8 +36,6 @@ const Profile = () => {
     }
   }, [profile, userId]);
 
-  // const [followers, setFollowers] = useState(singleUser?.followers);
-
   const handleFollow = async () => {
     try {
       if (isFollowing) {
@@ -155,6 +153,18 @@ const Profile = () => {
           ? "Unfollow "
           : "Follow "}
       </button>
+
+
+      {user?.username === singleUser?.username 
+      ? ""
+            :<Link to={`/chat/${userId}`}>
+            <button className="w-full py-2 mt-4 rounded-lg bg-green-600 text-center font-semibold transition-all duration-300 transform hover:scale-102">
+               Chat
+            </button>
+            </Link>
+            
+            }
+
 
       <div className="grid grid-cols-3 gap-4 bg-gray-200 dark:bg-gray-800 p-4 rounded-lg mt-6 shadow-md text-center">
         {[

@@ -1,12 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../features/auth/authSlice";
+import { connectSocket, loginUser, onlineUsers } from "../features/auth/authSlice";
 import { useEffect, useState } from "react";
-import loginImage from "../assets/login.svg"
 
 const Login = () => {
   const { user } = useSelector((state) => state.auth);
-  console.log(user)
+  console.log(user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -17,8 +16,8 @@ const Login = () => {
   });
 
   useEffect(() => {
-    if (user && user.
-      isVerified) {
+    if (user && user.isVerified) {
+      dispatch(connectSocket());
       navigate("/");
     }
   }, [user, navigate]);
@@ -44,6 +43,9 @@ const Login = () => {
     }
 
     dispatch(loginUser(formData));
+    // if(res.meta.requestStatus === 'fulfilled'){
+    //   dispatch(connectSocket())
+    // }
   };
 
   return (
@@ -94,16 +96,11 @@ const Login = () => {
         </p>
       </div>
 
-
-
-{/* <div>
+      {/* <div>
   <img src={loginImage} alt="" />
 </div> */}
-      
     </div>
   );
 };
 
 export default Login;
-
-

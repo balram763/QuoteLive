@@ -2,9 +2,10 @@ const express = require('express');
 const connectDB = require('./config/dbconfig');
 const errorHandler = require('./middlewares/errorHandler');
 const cors = require("cors");
+const { app,server } = require('./config/socket');
 require("dotenv").config()
 
-const app = express();
+// const app = express();
 
 //DB CONNECTION
 connectDB()
@@ -26,7 +27,8 @@ app.use('/api/quotes', require('./routes/quoteRoutes'));
 app.use('/api/favorites', require('./routes/favoriteRoutes'));
 app.use('/api/comments',  require('./routes/commentRoutes'));
 app.use('/api/likes', require('./routes/likeRoutes'));
+app.use('/api/chat', require('./routes/chatRoute'));
 
-app.listen(PORT ,()=>{
+server.listen(PORT ,()=>{
     console.log(`server is running at port : ${PORT}`)
 })

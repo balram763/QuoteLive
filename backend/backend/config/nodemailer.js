@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 })
 
 const sendOTP = async (email,otp) => {
-    console.log(otp)
+    // console.log(otp)
     const mailOptions = {
       from: "amanbalram0@gmail.com", 
       to: email,
@@ -31,10 +31,10 @@ const sendOTP = async (email,otp) => {
   
     try {
       const info = await transporter.sendMail(mailOptions);
-      console.log("OTP Email sent: " + info.response);
+      // console.log("OTP Email sent: " + info.response);
       return true;
     } catch (err) {
-      console.error("Failed to send OTP:", err);
+      // console.error("Failed to send OTP:", err);
       return false;
     }
   };

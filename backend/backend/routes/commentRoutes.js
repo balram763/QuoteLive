@@ -1,6 +1,6 @@
 const express = require('express');
-const { deleteComment, addComment } = require('../controllers/commentController');
 const authMiddleware = require('../middlewares/authMiddleware');
+const { addComment, deleteComment } = require('../controllers/commentController');
 const router = express.Router();
 
 router.post('/:quoteId',authMiddleware, addComment);

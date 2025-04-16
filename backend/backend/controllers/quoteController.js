@@ -1,6 +1,6 @@
 const Quote = require('../models/QuotesModel');
 
-exports.getAllQuotes = async (req, res) => {
+const getAllQuotes = async (req, res) => {
   try {
     const quotes = await Quote.find().populate("author","-password");
     res.status(200).json(quotes);
@@ -9,7 +9,7 @@ exports.getAllQuotes = async (req, res) => {
   }
 };
 
-exports.getQuoteById = async (req, res) => {
+const getQuoteById = async (req, res) => {
   try {
     const quote = await Quote.findById(req.params.id).populate("author","-password");
     if (!quote) return res.status(404).json({ message: 'Quote not found' });
@@ -19,7 +19,7 @@ exports.getQuoteById = async (req, res) => {
   }
 };
 
-exports.createQuote = async (req, res) => {
+  const createQuote = async (req, res) => {
     try {
       const { text, category } = req.body;
   
@@ -44,7 +44,7 @@ exports.createQuote = async (req, res) => {
   };
   
 
-exports.deleteQuote = async (req, res) => {
+const deleteQuote = async (req, res) => {
   try {
     await Quote.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: 'Quote deleted' });
@@ -52,3 +52,6 @@ exports.deleteQuote = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+module.exports = {deleteQuote,createQuote,getQuoteById,getAllQuotes}

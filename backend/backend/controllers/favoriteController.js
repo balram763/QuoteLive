@@ -2,7 +2,7 @@ const SavedQuote = require('../models/SavedQuote');
 const Quote = require('../models/QuotesModel');
 
 
-exports.addFavorite = async (req, res) => {
+const addFavorite = async (req, res) => {
   try {
     const userId = req.user._id;
     const {id} = req.params;
@@ -25,7 +25,7 @@ exports.addFavorite = async (req, res) => {
 };
 
 
-exports.removeFavorite = async (req, res) => {
+const removeFavorite = async (req, res) => {
   try {
     const userId = req.user._id;
     const {id} = req.params;
@@ -43,7 +43,7 @@ exports.removeFavorite = async (req, res) => {
   }
 };
 
-exports.getFavorites = async (req, res) => {
+const getFavorites = async (req, res) => {
   try {
     const favorites = await SavedQuote.find({ user: req.user._id }).populate("quote");
 
@@ -56,3 +56,5 @@ exports.getFavorites = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+module.exports = {getFavorites,removeFavorite,addFavorite}

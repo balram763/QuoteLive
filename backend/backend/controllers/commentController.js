@@ -1,10 +1,7 @@
 const Quote = require('../models/QuotesModel');
-const Comment = require("../models/Comment")
 
 
-
-
-exports.addComment = async (req, res) => {
+const addComment = async (req, res) => {
   try {
     const {quoteId} = req.params
     console.log(quoteId)
@@ -21,7 +18,7 @@ exports.addComment = async (req, res) => {
   }
 };
 
-exports.deleteComment = async (req, res) => {
+const deleteComment = async (req, res) => {
   try {
     const quote = await Quote.findById(req.params.quoteId);
     if (!quote) return res.status(404).json({ message: 'Quote not found' });
@@ -32,3 +29,6 @@ exports.deleteComment = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+module.exports = {addComment,deleteComment}

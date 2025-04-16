@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import axiosInstance from "../hooks/axiosConfig";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
@@ -7,10 +7,7 @@ import CommentSection from "../Pages/Quotedetail/CommentSection";
 import LikeButton from "../Pages/Quotedetail/LikeButton";
 import QuoteHeader from "../Pages/Quotedetail/QuoteHeader";
 import NotFound from "./NotFound";
-import { fetchQuote, 
-  // handleSingleQuote
-
- } from "../features/quote/quoteSlice";
+import { useParams } from "react-router-dom";
 
 const QuoteDetail = () => {
   const { id } = useParams();

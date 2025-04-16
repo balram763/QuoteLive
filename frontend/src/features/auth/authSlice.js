@@ -1,5 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { handleLogin, handleOtpVerify, handleSignup } from "./authService";
+import { io } from "socket.io-client";
+
+// const BaseUrl = "http://localhost:8080";
+const BaseUrl = "https://quotelive.onrender.com";
+
+let socketState = null;
+// console.log(socketState)
 
 const authSlice = createSlice({
   name: "auth",
@@ -11,6 +18,8 @@ const authSlice = createSlice({
     message: "",
     isOtpStage: false,
     emailForOtp: null,
+    // socket: null,
+    onlineUser : []
   },
   reducers: {
     logOut: (state) => {
@@ -25,6 +34,13 @@ const authSlice = createSlice({
     },
     setOtpStage: (state, action) => {
       state.isOtpStage = action.payload;
+    },
+    // connectSocket:,
+    disconnectSocket: (state) => {
+      if (state.user && socketState) {
+        socketState.disconnect();
+        socketState = null;
+      }
     },
   },
   extraReducers: (builder) => {
@@ -72,7 +88,13 @@ const authSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
         state.isLoading = false;
-      });
+      })
+      // .addCase(connectSocket,(state,action)=>{
+      //   state.socket = action.payload || null
+      // })
+      .addCase(onlineUsers.fulfilled,(state,action)=>{
+        state.onlineUser = action.payload || []
+      })
   },
 });
 
@@ -112,6 +134,48 @@ export const verifyOtp = createAsyncThunk(
   }
 );
 
-export const { logOut, isloggedin, setEmailForOtp, setOtpStage } =
-  authSlice.actions;
+//connectSocket
+export const connectSocket = createAsyncThunk("SOCKET/AUTH", async(_,thunkAPI) => {
+  const user = thunkAPI.getState().auth.user
+
+  if (user && !socketState) {
+    const socket = io(BaseUrl, {
+      query: {
+        userId: user?._id,
+      },
+    });
+    socket.connect();
+    socketState = socket;
+
+    socket.on("getOnlineUser", (users) => {
+      thunkAPI.dispatch(onlineUsers.fulfilled(users));
+    });
+
+    // return socket;
+  }
+
+});
+
+export const onlineUsers = createAsyncThunk("AUTH/ONLINE", async (_, thunkAPI) => {
+  return new Promise((resolve, reject) => {
+    if (!socketState) return reject("Socket not connected");
+
+    socketState.on("getOnlineUser", (users) => {
+      resolve(users);
+    });
+
+    setTimeout(() => reject("Timeout getting online users"), 5000);
+  });
+});
+
+export const getSocketState = () => socketState;
+
+
+export const {
+  logOut,
+  isloggedin,
+  setEmailForOtp,
+  setOtpStage,
+  disconnectSocket,
+} = authSlice.actions;
 export default authSlice.reducer;

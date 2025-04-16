@@ -6,7 +6,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "QuotliveProfile",
-    allowed_formats: ["jpg", "jpeg", "png"],
+    allowed_formats : ["jpg", "jpeg", "png", "gif", "webp"],
     transformation: [{ width: 500, height: 500, crop: "limit" }],
   },
 });

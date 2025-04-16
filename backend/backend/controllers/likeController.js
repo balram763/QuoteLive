@@ -1,7 +1,7 @@
 const Quote = require('../models/QuotesModel');
 
 
-exports.likeQuote = async (req, res) => {
+const likeQuote = async (req, res) => {
   try {
     const quote = await Quote.findById(req.params.quoteId);
     if (!quote) return res.status(404).json({ message: "Quote not found" });
@@ -21,7 +21,7 @@ exports.likeQuote = async (req, res) => {
   }
 };
 
-exports.unlikeQuote = async (req, res) => {
+const unlikeQuote = async (req, res) => {
   try {
     const quote = await Quote.findById(req.params.quoteId);
     if (!quote) return res.status(404).json({ message: "Quote not found" });
@@ -37,3 +37,6 @@ exports.unlikeQuote = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+module.exports = {likeQuote,unlikeQuote }

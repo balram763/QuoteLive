@@ -273,7 +273,8 @@ const verifyOtp = async (req, res) => {
       profilePic: user.profilePic,
       username: user.username,
       token: token,
-      isVerified : true
+      isVerified : true,
+      _id : user._id
     });
 
   } catch (error) {
@@ -313,7 +314,8 @@ const login = async (req, res) => {
       profilePic: user.profilePic,
       username: user.username,
       token: token,
-      isVerified : true
+      isVerified : true,
+      _id : user._id
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
