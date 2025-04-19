@@ -177,14 +177,14 @@ import {
   FaTwitter,
   FaInstagram,
   FaSnapchat,
+  FaGithub,
+  FaLinkedin,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const sliderImages = [
   "https://i.pinimg.com/originals/d8/a3/b4/d8a3b4e53021cdc56f17226299135693.gif",
-  // "https://i.pinimg.com/originals/40/6c/97/406c97079295f8d532e205087d4bb931.gif",
-  // "https://i.pinimg.com/originals/b1/1d/65/b11d65d7993038e0011df791e8906582.gif",
   "https://i.pinimg.com/originals/6f/45/d9/6f45d9dba4ada0b009b302be14a10491.gif",
   "https://i.pinimg.com/originals/46/cb/ed/46cbed8058f05079ed59631719978e90.gif",
   "https://i.pinimg.com/originals/e3/1b/75/e31b752875679b64fce009922f9f0dda.gif",
@@ -212,8 +212,10 @@ const About = () => {
       <h1 className="text-4xl font-bold text-center mb-6">About QuotLive</h1>
 
       <p className="md:text-lg shadow-pink-400 dark:shadow-blue-900 shadow-xl text-sm leading-relaxed text-start text-gray-700 dark:text-gray-300 mb-10 max-w-3xl border-2 rounded-2xl border-white p-3 mx-auto">
-      QuotLive is a creative space to share quotes, Shayari, and connect with like-minded individuals.
-Express your thoughts, discover inspiring content, like and comment on posts, and enjoy real-time chat with fellow creators to build a meaningful community.
+        QuotLive is a creative space to share quotes, Shayari, and connect with
+        like-minded individuals. Express your thoughts, discover inspiring
+        content, like and comment on posts, and enjoy real-time chat with fellow
+        creators to build a meaningful community.
       </p>
 
       {/* Image Slider */}
@@ -281,7 +283,7 @@ Express your thoughts, discover inspiring content, like and comment on posts, an
       <div className="text-center mb-10">
         <Link
           to="/"
-          className="bg-blue-500 dark:bg-blue-600 px-6 py-2 rounded-lg text-white font-medium hover:bg-blue-600 dark:hover:bg-blue-700 transition"
+          className="bg-pink-500 dark:bg-blue-900 px-6 py-2 rounded-lg text-white font-medium hover:bg-blue-600 dark:hover:bg-blue-700 transition"
         >
           Back to Home
         </Link>
@@ -292,35 +294,34 @@ Express your thoughts, discover inspiring content, like and comment on posts, an
         <p className="mb-2">&copy; 2025 QuotLive. All rights reserved.</p>
         <div className="flex justify-center gap-6 text-lg mb-2">
           <a
-            href="https://facebook.com"
+            href="https://github.com/balram763"
             target="_blank"
-            rel="noopener noreferrer"
           >
-            <FaFacebook className="hover:text-blue-600" />
+            <FaGithub className="hover:text-blue-600" />
           </a>
           <a
-            href="https://twitter.com"
+            href="https://twitter.com/balram763"
             target="_blank"
-            rel="noopener noreferrer"
           >
             <FaTwitter className="hover:text-blue-400" />
           </a>
           <a
-            href="https://instagram.com"
+            href="https://linkedin.com/in/balram-dhakad-a996bb209"
             target="_blank"
-            rel="noopener noreferrer"
+
           >
-            <FaInstagram className="hover:text-pink-500" />
+            <FaLinkedin className="hover:text-pink-500" />
           </a>
         </div>
         <div className="mb-4">
-          <Link to="/contact" className="hover:underline mx-2">
+          <a href="mailto:chat@quotlive.online" className="hover:underline mx-2">
             Contact
+          </a>
+
+          <Link to="/faq" className="hover:underline mx-2">
+            FAQ
           </Link>
           <Link to="/privacy" className="hover:underline mx-2">
-            Frequenctly Asked Questions
-          </Link>
-          <Link to="/terms" className="hover:underline mx-2">
             Privacy
           </Link>
         </div>

@@ -27,19 +27,19 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6  dark:text-white ">
-          <Link to="/search" className="hover:text-gray-300 fw-bold">
+          <Link to="/search" className="hover:text-blue-500 hover:scale-105 font-bold">
           FindUser
           </Link>
-          <Link to="/chat" className="hover:text-gray-300 fw-bold">
+          <Link to="/chat" className="hover:text-blue-500 hover:scale-105 font-bold">
             Chat
           </Link>
-          <Link to="/profile" className="hover:text-gray-300">
+          <Link to="/profile" className="hover:text-blue-500 hover:scale-105 font-bold">
             Profile
           </Link>
-          <Link to="/favorites" className="hover:text-gray-300">
+          <Link to="/favorites" className="hover:text-blue-500 hover:scale-105 font-bold">
             Favorites
           </Link>
-          <Link to="/about" className="hover:text-gray-300">
+          <Link to="/about" className="hover:text-blue-500 hover:scale-105 font-bold">
             About
           </Link>
           {user ? (

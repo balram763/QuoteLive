@@ -17,7 +17,7 @@ const categories = [
   "Humor",
 ];
 
-const Home = () => {
+const HomePage = () => {
   const [search, setsearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortOrder, setSortOrder] = useState("newest");
@@ -188,4 +188,4 @@ useEffect(() => {
   );
 };
 
-export default Home;
+export default HomePage;

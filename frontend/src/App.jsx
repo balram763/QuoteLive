@@ -21,6 +21,8 @@ import FollowersPage from "./Pages/Followers";
 import NotFound from "./components/NotFound";
 import Chat from "./Pages/Chat";
 import ExploreUsers from "./Pages/ExploreUsers";
+import FaqPage from "./Pages/FaqPage";
+import PrivacyPolicies from "./Pages/PrivacyPolicies"
 
 function App() {
   const dispatch = useDispatch();
@@ -78,6 +80,8 @@ function App() {
             <Route path="/chat/:id" element={<Chat />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/search" element={<ExploreUsers />} />
+            <Route path="/faq" element={<FaqPage />} />
+            <Route path="/privacy" element={<PrivacyPolicies />} />
             <Route path="/*" element={<NotFound/>} />
 
           </Routes>

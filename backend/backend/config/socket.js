@@ -7,7 +7,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: ["https://quotlive.vercel.app", "https://quotlive.online"]
   }
 });
 const userSocketMap = {};
@@ -18,14 +18,14 @@ const getReceiverId = (userId) => {
 
 
 io.on("connection", (socket) => {
-  console.log("A user is connected", socket.id);
+//   console.log("A user is connected", socket.id);
   const userId = socket.handshake.query.userId;
 
   if (userId) userSocketMap[userId] = socket.id;
   io.emit("getOnlineUser", Object.keys(userSocketMap));
 
   socket.on("disconnect", () => {
-    console.log("user is disconnected", socket.id);
+    // console.log("user is disconnected", socket.id);
     delete userSocketMap[userId];
     io.emit("getOnlineUser", Object.keys(userSocketMap));
   });
