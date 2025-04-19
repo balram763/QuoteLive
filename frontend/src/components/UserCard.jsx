@@ -1,32 +1,5 @@
-// import React from 'react'
-// import defaultImage from "../assets/defaultImage.svg"
-// import { Link } from 'react-router-dom';
-
-
-// const UserCard = ({ user }) => {
-//     return (
-//       <Link to={`/profile/${user._id}`}>
-//         <div className="p-4 h-60 border bg-pink-100 rounded-lg shadow hover:shadow-lg transition text-center  dark:bg-gray-800 dark:border-gray-700">
-//           <img
-//             src={user?.profilePic || defaultImage }
-//             alt={user?.username}
-//             className="w-20 h-20 rounded-full object-cover mx-auto mb-3"
-//           />
-//           <h4 className="text-lg font-semibold text-gray-800 dark:text-white">
-//             {user?.username}
-//           </h4>
-//           <p className="text-sm text-gray-500 dark:text-gray-300">
-//             {user?.bio || "No bio yet."}
-//           </p>
-//         </div>
-//       </Link>
-//     );
-//   };
-
-// export default UserCard
-
 import React from 'react'
-import defaultImage from "../assets/defaultImage.svg"
+import defaultImage from "../assets/defaultimage.svg"
 import { Link } from 'react-router-dom';
 
 const UserCard = ({ user }) => {
