@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useParams } from "react-router-dom";
-import defaultImage from "../assets/defaultImage.svg"
+import defaultImage from "../assets/defaultimage.svg"
 import { fetchProfile, fetchUser } from "../features/quote/quoteSlice";
 
 const FollowersPage = () => {
