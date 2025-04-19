@@ -7,7 +7,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: ["https://quotlive.vercel.app", "https://quotlive.online"]
+    origin: ["https://quotlive.vercel.app", "https://quotlive.online" , "https://www.quotlive.online"]
   }
 });
 const userSocketMap = {};
