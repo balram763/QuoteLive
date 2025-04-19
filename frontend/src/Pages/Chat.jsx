@@ -29,8 +29,9 @@ const Chat = () => {
 
   const subscribeToMessage = () => {
     socketState.on("newMessage", (message) => {
-      if(message.senderId !== id || message.receiverId !== id) return
-      setMessages((prevMessages) => [...prevMessages, message]);
+      if(message.senderId === id || message.receiverId === id){
+      setMessages((prevMessages) => [...prevMessages, message])
+      }
     });
   }
 
