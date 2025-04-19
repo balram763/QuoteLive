@@ -91,9 +91,20 @@ const unfollowUser = async (req, res) => {
 
   
 
-const getAllUsers = async() => {
-    const allfollowers = await User.find()
-}
+
+const getAllUsers = async (req, res) => {
+  try {
+    const allUsers = await User.find({},{profilePic:1,bio:1,username:1});
+
+    if (allUsers.length === 0) {
+      return res.status(404).json({ error: "No users found" });
+    }
+
+    res.status(200).json(allUsers);
+  } catch (error) {
+    res.status(500).json({ error: "Server Error"});
+  }
+};
 
 
 
@@ -120,5 +131,5 @@ const updateProfile = async (req, res) => {
 
 
 
-module.exports = {updateProfile,unfollowUser,followUser,getSelfProfile,getUserProfile}
+module.exports = {updateProfile,unfollowUser,followUser,getSelfProfile,getUserProfile,getAllUsers}
 

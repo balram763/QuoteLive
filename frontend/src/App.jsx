@@ -20,15 +20,14 @@ import EditProfile from "./Pages/EditProfile";
 import FollowersPage from "./Pages/Followers";
 import NotFound from "./components/NotFound";
 import Chat from "./Pages/Chat";
+import ExploreUsers from "./Pages/ExploreUsers";
 
 function App() {
   const dispatch = useDispatch();
   const [isAuthChecked, setIsAuthChecked] = useState(false);
-  const { user, isLoading, isError, message,onlineUser } = useSelector(
+  const { user, isLoading, isError, message } = useSelector(
     (state) => state.auth
   );
-
-  // console.log(onlineUser)
 
 
   useEffect(() => {
@@ -36,11 +35,12 @@ function App() {
     if (userExist && !user) {
       dispatch(isloggedin(JSON.parse(userExist)));
       dispatch(connectSocket())
+      dispatch(fetchQuote())
+      
     } else {
       dispatch(isloggedin(null));
       
     }
-
     setIsAuthChecked(true);
   }, []);
 
@@ -76,6 +76,8 @@ function App() {
             <Route path="/follower" element={<FollowersPage />} />
             <Route path="/follower/:id" element={<FollowersPage />} />
             <Route path="/chat/:id" element={<Chat />} />
+            <Route path="/chat" element={<Chat />} />
+            <Route path="/search" element={<ExploreUsers />} />
             <Route path="/*" element={<NotFound/>} />
 
           </Routes>

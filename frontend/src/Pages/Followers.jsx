@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useParams } from "react-router-dom";
+import defaultImage from "../assets/defaultImage.svg"
 import { fetchProfile, fetchUser } from "../features/quote/quoteSlice";
 
 const FollowersPage = () => {
@@ -69,7 +70,7 @@ const FollowersPage = () => {
               className="flex items-center gap-4 p-4 rounded-xl bg-white/70 dark:bg-gray-800/70 hover:shadow-md hover:bg-pink-100/60 dark:hover:bg-blue-900/60 transition-all"
             >
               <img
-                src={user.profilePic}
+                src={user.profilePic || defaultImage}
                 alt="avatar"
                 className="w-12 h-12 object-cover rounded-full border border-purple-400"
               />

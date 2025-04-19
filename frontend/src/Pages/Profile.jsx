@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { fetchProfile, fetchUser } from "../features/quote/quoteSlice";
-import Loading from "../components/Loading";
 import axiosInstance from "../hooks/axiosConfig";
 import toast from "react-hot-toast";
 import { FaUsers, FaUserSecret } from "react-icons/fa";
+import Loading from "../components/Loading";
 
 const Profile = () => {
   const { user } = useSelector((state) => state.auth);
@@ -13,7 +13,7 @@ const Profile = () => {
   const { userId } = useParams();
   const dispatch = useDispatch();
   const [isFollowing, setIsFollowing] = useState(false);
-  const { singleUser, quotes, isLoading } = useSelector((state) => state.quote);
+  const { singleUser, quotes } = useSelector((state) => state.quote);
   let userQuotes = quotes.filter((quote) => quote?.author?._id === userId);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const Profile = () => {
     }
   }, [user, userId, isFollowing]);
 
-  console.log(singleUser);
+  // console.log(singleUser);
 
   useEffect(() => {
     if (profile?.following && userId) {
@@ -83,7 +83,7 @@ const Profile = () => {
     0
   );
 
-  // if (isLoading) {
+  // if (quotes.length === 0) {
   //   return <Loading />;
   // }
 

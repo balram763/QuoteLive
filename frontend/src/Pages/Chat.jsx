@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import defaultImage from "../assets/defaultimage.svg"
 import { getSocketState, onlineUsers } from "../features/auth/authSlice";
 import { IoMdChatbubbles } from "react-icons/io";
+import chat from "../assets/chat3.gif"
 
 
 const Chat = () => {
@@ -22,6 +23,8 @@ const Chat = () => {
   const dispatch = useDispatch()
 
   const { id } = useParams();
+
+
 
   const socketState = getSocketState();
 
@@ -57,13 +60,14 @@ const Chat = () => {
       }
     })
     setChatUser(response?.data)
-    setLoading(false)
+    // setLoading(false)
   }
 
 
   useEffect(() => {
-    fetchChat()
     fetchChatUser()
+    if(!id) return
+    fetchChat()
     subscribeToMessage()
     dispatch(onlineUsers());
     return () => unSubscribeToMessage()
@@ -172,7 +176,12 @@ const Chat = () => {
                     </h1>
 
           <div className="h-[80%] overflow-y-auto space-y-4 mb-4">
-            {loading ? (
+            {!id ? <div className="space-y-4 flex mt-15 justify-center">
+                <div> 
+                  <img src={chat} className="dark:invert-100" alt="" />
+                </div>
+              </div> : 
+            loading ? (
               <div className="space-y-4">
                 {[...Array(6)].map((_, index) => (
                   <div key={index} className="flex space-x-4">

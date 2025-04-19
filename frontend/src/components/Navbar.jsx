@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { logOut, disconnectSocket } from "../features/auth/authSlice";
+import { logOut ,disconnectSocket} from "../features/auth/authSlice";
 import toast from "react-hot-toast";
 import { BsChatSquareQuoteFill } from "react-icons/bs";
 
@@ -11,9 +11,8 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
 
-  console.log(document.cookie);
   const handleLogOut = async () => {
-    await dispatch(disconnectSocket());
+    await dispatch(disconnectSocket())
     await dispatch(logOut());
     setIsOpen(false);
     toast.success("logged out..");
@@ -22,26 +21,26 @@ const Navbar = () => {
   return (
     <nav className="bg-gradient-to-r from-pink-50 to-pink-300 dark:from-gray-900 dark:to-black  p-4 shadow-md">
       <div className="max-w-6xl mx-auto flex justify-between items-center">
-        <Link
-          to="/"
-          className="dark:text-white text-black md:text-xl text-sm font-bold"
-        >
-          <BsChatSquareQuoteFill className="ml-6 xl:ml-8 md:text-xl" /> QuotLive
+        <Link to="/" className="dark:text-white text-black md:text-xl text-sm font-bold">
+          <BsChatSquareQuoteFill className="ml-6 xl:ml-8 md:text-xl" />  QuotLive
         </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6  dark:text-white ">
-          <Link to="/" className="hover:text-gray-300 fw-bold">
-            Home
+          <Link to="/search" className="hover:text-gray-300 fw-bold">
+          FindUser
+          </Link>
+          <Link to="/chat" className="hover:text-gray-300 fw-bold">
+            Chat
           </Link>
           <Link to="/profile" className="hover:text-gray-300">
             Profile
           </Link>
-          <Link to="/about" className="hover:text-gray-300">
-            About
-          </Link>
           <Link to="/favorites" className="hover:text-gray-300">
             Favorites
+          </Link>
+          <Link to="/about" className="hover:text-gray-300">
+            About
           </Link>
           {user ? (
             <button
@@ -68,14 +67,26 @@ const Navbar = () => {
         </button>
       </div>
 
+
+
+
+
+
       {isOpen && (
         <div className="md:hidden z-20 absolute top-16 left-0 w-full bg-white dark:bg-black text-black dark:text-white shadow-xl rounded-lg p-4 space-y-3 transition-all duration-300">
           <Link
-            to="/"
+            to="/chat"
             className="block px-4 py-2 text-lg font-medium transition-transform duration-200 rounded-lg hover:scale-102 hover:bg-gray-200 dark:hover:bg-gray-800"
             onClick={() => setIsOpen(false)}
           >
-            Home
+            Chat
+          </Link>
+          <Link
+            to="/search"
+            className="block px-4 py-2 text-lg font-medium transition-transform duration-200 rounded-lg hover:scale-102 hover:bg-gray-200 dark:hover:bg-gray-800"
+            onClick={() => setIsOpen(false)}
+          >
+            FindUser
           </Link>
           <Link
             to="/profile"
@@ -85,18 +96,18 @@ const Navbar = () => {
             Profile
           </Link>
           <Link
-            to="/about"
-            className="block px-4 py-2 text-lg font-medium transition-transform duration-200 rounded-lg hover:scale-102 hover:bg-gray-200 dark:hover:bg-gray-800"
-            onClick={() => setIsOpen(false)}
-          >
-            About
-          </Link>
-          <Link
             to="/favorites"
             className="block px-4 py-2 text-lg font-medium transition-transform duration-200 rounded-lg hover:scale-102 hover:bg-gray-200 dark:hover:bg-gray-800"
             onClick={() => setIsOpen(false)}
           >
             Favorites
+          </Link>
+          <Link
+            to="/about"
+            className="block px-4 py-2 text-lg font-medium transition-transform duration-200 rounded-lg hover:scale-102 hover:bg-gray-200 dark:hover:bg-gray-800"
+            onClick={() => setIsOpen(false)}
+          >
+            About
           </Link>
           {user ? (
             <button

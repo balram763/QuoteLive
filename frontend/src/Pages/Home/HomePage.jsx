@@ -30,17 +30,17 @@ const Home = () => {
 
   const [isInitialLoading, setIsInitialLoading] = useState(true);
 
-useEffect(() => {
   const fetchInitialQuotes = async () => {
     try {
-      await dispatch(fetchQuote()).unwrap();
+      await dispatch(fetchQuote());
     } catch (error) {
-      toast.error("Something went wrong while fetching quotes");
+      toast.error("Something went wrong");
     } finally {
       setIsInitialLoading(false);
     }
   };
-
+  
+useEffect(() => {
   fetchInitialQuotes();
 }, [dispatch]);
 
@@ -76,7 +76,7 @@ useEffect(() => {
     })
     .filter((quote) => {
       if (isTrending) {
-        return Number(quote?.likes?.length || 0) > 1;
+        return Number(quote?.likes?.length || 0) > 2;
       }
       return true;
     })
