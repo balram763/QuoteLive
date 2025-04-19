@@ -25,7 +25,7 @@ const DarkModeBtn = () => {
   return (
     <button
       onClick={toggleDarkMode}
-      className="bg-gray-800 dark:bg-white  text-white fixed bottom-1/10 z-20 left-1/12 dark:text-black  md:p-3 p-2 rounded-full shadow-lg hover:bg-blue-600 transition"
+      className="bg-gray-800 dark:bg-white  text-white fixed bottom-2/10 z-20 left-1/12 dark:text-black  md:p-3 p-2 rounded-full shadow-lg hover:bg-blue-600 transition"
     >
       {darkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
     </button>
