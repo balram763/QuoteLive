@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: ["https://quotlive.vercel.app", "https://quotlive.online","https://www.quotlive.online/"],
+    origin: ["https://quotlive.vercel.app", "https://quotlive.online","https://www.quotlive.online"],
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
