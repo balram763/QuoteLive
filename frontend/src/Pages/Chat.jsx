@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import {FaTimes, FaImage, FaPaperPlane, FaArrowAltCircleRight } from "react-icons/fa";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../hooks/axiosConfig";
 import { useDispatch, useSelector } from "react-redux";
 import defaultImage from "../assets/defaultimage.svg"
 import { getSocketState, onlineUsers } from "../features/auth/authSlice";
 import { IoMdChatbubbles } from "react-icons/io";
 import chat from "../assets/chat3.gif"
+import toast from "react-hot-toast";
 
 
 const Chat = () => {
+  const navigate = useNavigate()
   const [open, setOpen] = useState(false); 
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
@@ -65,6 +67,10 @@ const Chat = () => {
 
 
   useEffect(() => {
+    if(!user){
+      navigate("/login")
+      toast.error("login first")
+    }
     fetchChatUser()
     if(!id) return
     fetchChat()

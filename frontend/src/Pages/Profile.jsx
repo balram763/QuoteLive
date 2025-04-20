@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { fetchProfile, fetchUser } from "../features/quote/quoteSlice";
 import axiosInstance from "../hooks/axiosConfig";
 import toast from "react-hot-toast";
@@ -8,6 +8,7 @@ import { FaUsers, FaUserSecret } from "react-icons/fa";
 import Loading from "../components/Loading";
 
 const Profile = () => {
+  const navigate = useNavigate()
   const { user } = useSelector((state) => state.auth);
   const { profile } = useSelector((state) => state.quote);
   const { userId } = useParams();
@@ -19,6 +20,9 @@ const Profile = () => {
   useEffect(() => {
     if (user) {
       dispatch(fetchProfile(user?.token));
+    }else{
+      navigate("/login")
+      toast.error("login first")
     }
 
     if (userId) {
