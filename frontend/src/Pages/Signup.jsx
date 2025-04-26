@@ -108,9 +108,7 @@ const Signup = () => {
                   </div>
 
                   <div className="mb-4">
-                    {/* <label className="block fw-bold text-lg mb-2">
-                      Password
-                    </label> */}
+
                     <input
                       name="password"
                       value={formData.password}
@@ -122,9 +120,7 @@ const Signup = () => {
                   </div>
 
                   <div className="mb-4">
-                    {/* <label className="block fw-bold text-lg mb-2">
-                      Confirm Password
-                    </label> */}
+
                     <input
                       name="password2"
                       value={formData.password2}
@@ -176,6 +172,7 @@ const Signup = () => {
                 Verify
               </button>
             </form>
+            <p className="mt-2">Please check in spam folder</p>
         </div>
           </>
         )}
