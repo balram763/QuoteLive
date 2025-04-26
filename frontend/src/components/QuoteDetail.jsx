@@ -6,8 +6,8 @@ import toast from "react-hot-toast";
 import CommentSection from "../Pages/Quotedetail/CommentSection";
 import LikeButton from "../Pages/Quotedetail/LikeButton";
 import QuoteHeader from "../Pages/Quotedetail/QuoteHeader";
-import NotFound from "./NotFound";
 import { useParams } from "react-router-dom";
+import Loading from "./Loading";
 
 const QuoteDetail = () => {
   const { id } = useParams();
@@ -27,13 +27,8 @@ const QuoteDetail = () => {
     fetchById();
   }, [id]);
 
-  // useEffect(() => {
-  //   // dispatch(handleSingleQuote(quote));
-  //   dispatch(fetchQuote());
-  // }, [quote]);
-
   if (!quote) {
-    return <NotFound />;
+    return <Loading />;
   }
 
   return (
