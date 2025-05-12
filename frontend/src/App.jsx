@@ -124,7 +124,7 @@ const PrivacyPolicies = lazy(() => import("./Pages/PrivacyPolicies"));
 function App() {
   const dispatch = useDispatch();
   const [isAuthChecked, setIsAuthChecked] = useState(false);
-  const { user, isLoading, isError, message } = useSelector(
+  const { user, isLoading } = useSelector(
     (state) => state.auth
   );
 
@@ -140,11 +140,7 @@ function App() {
     setIsAuthChecked(true);
   }, []);
 
-  useEffect(() => {
-    if (user && (isError || message)) {
-      toast.error(message);
-    }
-  }, [isError, message, user]);
+
 
   if (!isAuthChecked || isLoading) {
     return <Loading />;
